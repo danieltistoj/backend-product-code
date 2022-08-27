@@ -34,12 +34,12 @@ const userSchema = new Schema({
         timestamps:true,
     }
 )
-
-userSchema.pre('save',(next)=>{
+/*
+userSchema.pre('save', async (next)=>{
     let user = this
     if(!user.isModified('password')) return next()
     
-    bcrypt.genSalt(10,(err,salt)=>{
+    await bcrypt.genSalt(10,(err,salt)=>{
         if (err) return next(err)
 
         bcrypt.hash(user.password,salt,null,(err,hash)=>{
@@ -49,6 +49,15 @@ userSchema.pre('save',(next)=>{
         })
     })
 })
+*/
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
+    next();
+    }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+});
+
 
 userSchema.methods.gravatar = function(){
     if(!this.email) return `https://gravatar.com/avatar/?s=2006d=retro`

@@ -8,7 +8,7 @@ import {
 } from "../controller/userController.js"
 
 router
-    .post("/singUp",signUp)
+    .post("/signUp",signUp)
     .post("/login",login)
     .get("/getAllUser",getAllUser)
     .post("/getOneUser",getOneUser)
