@@ -5,11 +5,19 @@ import {
     getOneUserService,
 } from "../services/userServices.js"
 
-const signUp = (req,res) => {
+const signUp = async (req,res) => {
     //mandamos el json con los datos del usuario
-    res.json({
-        message: signUpServices(req.body)
-    })
+    const  successful = await signUpServices(req.body)
+    console.log(successful)
+    if(successful){
+        res.send({
+            message:"user created successfully"
+        })
+    }else{
+        res.send({
+            message:`User ${req.body.email} already exists`
+        })
+    }
 
 }
 const login = (req,res) => {
