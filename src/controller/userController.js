@@ -20,9 +20,8 @@ const signUp = async (req,res) => {
     }
 
 }
-const login = (req,res) => {
-    res.send(req.body)
-
+const login =  async (req,res) => {
+    res.send( await loginServices(req.body))
 }
 const getAllUser = (req,res) =>{
     res.send(getAllUserServices())

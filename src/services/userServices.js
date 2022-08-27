@@ -1,26 +1,9 @@
 import User from '../models/User.js'
+import generateId from '../helpers/generateId.js'
+import generateJWT from '../helpers/generateJWT.js'
 
 const signUpServices = async (user) => {
-    //buscamos el email para ver si existe
-    /*
-    console.log(user)
-    const email = user.email
-    const existsUser = await User.findOne({email})
-    
-    if(existsUser){
-        const error = new Error(`User ${user.email} already exists`)
-        console.log(error.message)
-        return error.message
-    }
-    try {
-        const newUser = new User(user)
-        await newUser.save()
-        return "successfully registered user"
-    }catch(err){
-        console.log(err)
-    }
-    
-*/
+
     const email = user.email
     const existsUser = await User.findOne({email})
     let successful = false
@@ -29,6 +12,7 @@ const signUpServices = async (user) => {
     if(!existsUser){
         try {
             const newUser = new User(user)
+            newUser.token = generateId()
             await newUser.save()
             successful = true
         }catch(err){
@@ -42,8 +26,32 @@ const signUpServices = async (user) => {
 
 
 
-const loginServices = (email,password) => {
-
+const loginServices = async (user) => {
+    console.log(user)
+    const email = user.email
+    const existsUser = await User.findOne({email})
+    console.log(existsUser)
+    let successful = false
+    //Si el usuario existe
+    if(!existsUser){
+       return "Username does not exist"
+    }
+    //comprobar confirmacion
+    if(!existsUser.confirmed){
+        return "Your account is not confirmed"
+    }
+    //comprobar password
+    
+    if(await existsUser.comparePassword(user.password)){
+        return {
+            _id: existsUser._id,
+            name: existsUser.name,
+            email: existsUser.email,
+            token: generateJWT(existsUser.token)
+        }
+    }else {
+        return "Incorrect password"
+    }
 }
 const getAllUserServices = () =>{
     return "Todos los usuarios"

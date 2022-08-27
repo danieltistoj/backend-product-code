@@ -13,7 +13,7 @@ const userSchema = new Schema({
         type:String,
         required:true,
         trim:true,
-        select:false,
+        //select: false,
     },
     email:{
         type:String,
@@ -23,7 +23,7 @@ const userSchema = new Schema({
     },
     token:{
         type:String,
-        select:false,
+        //select:false,
     },
     confirmed:{
         type:Boolean,
@@ -35,20 +35,10 @@ const userSchema = new Schema({
     }
 )
 /*
-userSchema.pre('save', async (next)=>{
-    let user = this
-    if(!user.isModified('password')) return next()
-    
-    await bcrypt.genSalt(10,(err,salt)=>{
-        if (err) return next(err)
-
-        bcrypt.hash(user.password,salt,null,(err,hash)=>{
-            if(err) return next(err)
-            user.password = hash
-            next()
-        })
-    })
-})
+Si se le agrega select a los paramentros al cliente no le va salir al cliente, 
+esto puede servir como una medida de seguridad, pero para comprobar por ejemplo la 
+contraseña, puede ser un problema, ya que si tiene el select en falso, en el metodo de 
+comprobacion no la va a mostrar y esta sera undefined, por lo tanto el hash en bcrypt sera nulo
 */
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {
@@ -67,7 +57,9 @@ userSchema.methods.gravatar = function(){
 }
 
 userSchema.methods.comparePassword = async function(passwordForm) {
-    return await bcrypt.compare(passwordForm,this.password)
+    console.log("contra entrante",passwordForm)
+    console.log("hash",this.password)
+    return await bcrypt.compare(passwordForm, this.password)
 }
 
 const User = mongoose.model('user',userSchema)
