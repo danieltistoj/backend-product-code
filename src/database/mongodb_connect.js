@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
+import {config} from "../config/default.js"
 
 const connectMongoDB = async () =>{
     try{
         //console.log("uri",process.env.MONGO_URI)
-        const connection = await mongoose.connect(process.env.MONGO_URI,{
+        const connection = await mongoose.connect(config.uriMongo.uri,{
             useNewUrlParser: true,
             retryWrites: true,
             w: "majority",
