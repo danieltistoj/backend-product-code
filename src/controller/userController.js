@@ -12,7 +12,7 @@ const login = (req,res) => {
 
 }
 const getAllUser = (req,res) =>{
-
+    res.send(getAllUserServices())
 }
 const getOneUser = (req,res) =>{
 
