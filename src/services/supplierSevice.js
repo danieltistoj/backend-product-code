@@ -1,18 +1,18 @@
 import Product from "../models/Product.js";
 
-const createSupplier = async(supplier)=>{
+const createSupplierService = async(supplier)=>{
 
 }
 
-const updateSupplier= async(supplier)=>{
+const updateSupplierService= async(supplier)=>{
     
 }
-const getAllSupplier= async(supplier)=>{
+const getAllSupplierService= async(supplier)=>{
 
 }
-const getOneSupplier = async(supplier)=>{
+const getOneSupplierService = async(supplier)=>{
     
 }
-const deleteSupplier = async(supplier)=>{
+const deleteSupplierService = async(supplier)=>{
     
 }

@@ -1,17 +1,17 @@
 import Product from "../models/Product.js";
 
-const createProduct = async(product)=>{
+const createProductService = async(product)=>{
 
 }
-const updateProduct= async(product)=>{
+const updateProductService = async(product)=>{
     
 }
-const getAllProduct= async(product)=>{
+const getAllProductService = async(product)=>{
 
 }
-const getOneProduct= async(product)=>{
+const getOneProductService= async(product)=>{
     
 }
-const deleteProduct= async(product)=>{
+const deleteProductService= async(product)=>{
     
 }

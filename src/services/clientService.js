@@ -1,18 +1,18 @@
 import Client from "../models/Client.js";
 
-const createClient = async(client)=>{
+const createClientService = async(client)=>{
 
 }
 
-const updateClient = async(client)=>{
+const updateClientService = async(client)=>{
     
 }
-const getAllClient = async(client)=>{
+const getAllClientService = async(client)=>{
 
 }
-const getOneClient = async(client)=>{
+const getOneClientService = async(client)=>{
     
 }
-const deleteClient = async(client)=>{
+const deleteClientService = async(client)=>{
     
 }
