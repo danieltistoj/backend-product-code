@@ -16,6 +16,21 @@ const productSchema = new Schema({
         type:Number,
         default:0,
     },
+    category:{
+        type: String,
+        required:true,
+        trim: true,
+    },
+    price:{
+        type: Number,
+        required:true,
+        trim: true,
+    },
+    description:{
+        type: String,
+        required:false,
+        trim:true,
+    },
     state:{
         type:Boolean,
         default:true,
@@ -24,5 +39,8 @@ const productSchema = new Schema({
         type: String,
         trim: true,
     }
-
-})
+},
+    {
+        timestamps:true,
+    }
+)

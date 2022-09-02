@@ -12,7 +12,6 @@ const signUpServices = async (user) => {
     if(!existsUser){
         try {
             const newUser = new User(user)
-            newUser.token = generateId()
             await newUser.save()
             successful = true
         }catch(err){
