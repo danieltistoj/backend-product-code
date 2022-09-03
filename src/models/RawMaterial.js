@@ -1,4 +1,3 @@
-import { body } from "express-validator";
 import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
@@ -8,7 +7,7 @@ const RawMaterialSchema = new Schema({
         required:true,
         trim:true,
     },
-    stocks:{
+    stock:{
         type: Number,
         required:true,
         trim: true,
@@ -19,13 +18,21 @@ const RawMaterialSchema = new Schema({
         trim: true,
     },
     cost:{
-        type:NaNumber,
+        type:Number,
         required:true,
     },
     state:{
         type: Boolean,
         default:false,
+        required: false
     }
     
 
-})
+},
+    {
+        timestamps:true,
+    }
+)
+
+const RawMaterial = mongoose.model('rawMaterial',RawMaterialSchema)
+export default RawMaterial

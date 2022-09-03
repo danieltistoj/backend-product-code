@@ -5,9 +5,9 @@ import{
 
 const createProduct = async (req,res)=>{
     if(createProductService(req.body)){
-        res.send("Client created successfully")
+        res.send("Product created successfully")
     }else{
-        res.send("Client not created")
+        res.send("Product not created")
     }
 
 }
