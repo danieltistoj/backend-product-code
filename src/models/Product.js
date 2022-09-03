@@ -38,9 +38,13 @@ const productSchema = new Schema({
     admission:{
         type: String,
         trim: true,
+        required:false,   
     }
 },
     {
         timestamps:true,
     }
 )
+
+const Product = mongoose.model('product',productSchema)
+export default Product

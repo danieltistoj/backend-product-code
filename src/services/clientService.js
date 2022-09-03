@@ -13,10 +13,10 @@ const createClientService = async(client)=>{
     return successful
 }
 const updateClientService = async(client)=>{
-    const email = client.email
-    const existingClient = await Client.findOne({email})
+    const name = client.name
+    const existingClient = await Client.findOne({name})
     if(existingClient){
-        existingClient
+        
     }
     else{
 
@@ -24,6 +24,7 @@ const updateClientService = async(client)=>{
     
 }
 const getAllClientService = async(client)=>{
+    
 
 }
 const getOneClientService= async(client)=>{
