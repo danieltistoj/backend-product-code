@@ -1,18 +1,18 @@
 
 class crudService{
-    createService(service){
+    createService(model){
 
     }
-    updateService(service){
+    updateService(model){
 
     }
-    deleteService(service){
+    deleteService(model){
 
     }
-    getAllServices(){
+    getAllServices(id){
 
     }
-    getOneService(){
+    getOneService(id){
         
     }
 }

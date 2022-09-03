@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const Schema = mongoose.Schema
 const clientSchema = new Schema({
     name:{
         type: String,
@@ -8,7 +9,7 @@ const clientSchema = new Schema({
     direction:{
         type: String,
         required:false,
-        trim: trim,
+        trim: true,
 
     },
     email:{
@@ -20,5 +21,18 @@ const clientSchema = new Schema({
         type:String,
         required:true,
         trim: true,
+    },
+    nit:{
+        type:String,
+        required:false,
+        trim: true,
     }
-})
+},
+{
+    timestamps:true,
+}
+)
+
+
+const Client = mongoose.model('client',clientSchema)
+export default Client;

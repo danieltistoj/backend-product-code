@@ -3,6 +3,7 @@ import cors from 'cors'
 import morgan from 'morgan';
 import connectMongoDB from '../database/mongodb_connect.js'
 import userRoutes from '../Routes/userRoutes.js'
+import clientRoutes from "../Routes/clientRoutes.js"
 
 class Server{
     constructor(config){
@@ -22,6 +23,7 @@ class Server{
     }
     setRoutes(){
     this._app.use('/api/v1/user',userRoutes)
+    this._app.use('/api/v1/client',clientRoutes)
     }
     start(){
         this._app.set('hostname',this._hostname)
