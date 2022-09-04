@@ -4,7 +4,8 @@ import {
     createProduct,
     getAllProduct,
     getOneProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct,
 } from "../controller/productController.js"
 
 router
@@ -12,5 +13,6 @@ router
     .get("/getAllProduct",getAllProduct)
     .get("/getOneProduct/:name",getOneProduct)
     .put("/upDateProduct/:name",updateProduct)
+    .delete("/deleteProduct/:name",deleteProduct)
     
 export default router

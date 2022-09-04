@@ -15,12 +15,16 @@ export class crudService{
             return `${title} not created`
         }
     }
+    /*
+    Modificar modelo 
+    */
     async updateService(filter,upData){
         const newData = await this._model.updateOne(filter,upData)
         return newData
     }
-    deleteService(model){
 
+    async deleteService(filter){
+        return await this._model.deleteOne(filter)
     }
     /*
     El primero se refiere al valor de busqueda
