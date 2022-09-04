@@ -15,8 +15,17 @@ const getOneSupplier = async (req, res) =>{
     res.send(await newCRUD.getOneData(req.params))
 }
 
+const updateSupplier = async (req, res) =>{
+    const newCRUD = new crudService(req.body,supplier)
+    if(await newCRUD.validation(req.params)){
+        res.send(await newCRUD.updateService(req.params,req.body))
+    }else{
+        res.send("No data found")
+    }
+}
 export {
     createSupplier,
     getAllSuppliers,
     getOneSupplier,
+    updateSupplier,
 }
