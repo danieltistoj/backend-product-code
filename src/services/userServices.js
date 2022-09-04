@@ -16,8 +16,7 @@ const signUpServices = async (user) => {
             successful = true
         }catch(err){
             console.log(err)
-        }
-        
+        }   
     }
     return successful
 }

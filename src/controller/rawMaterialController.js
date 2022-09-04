@@ -1,15 +1,10 @@
-import {
-    createRawMaterialService
-} from "../services/rawMaterialService.js"
+import {crudService} from "../services/crudService.js"
+
+import RawMaterial from "../models/RawMaterial.js"
 
 const createRawMaterial = async (req,res)=>{
-    console.log(req.body)
-    if(createRawMaterialService(req.body)){
-        res.send("rawMaterial created successfully")
-    }else{
-        res.send("rawMaterial not created")
-    }
-
+    const newCRUD = new crudService(req.body,RawMaterial) 
+    res.send( await newCRUD.createService("Raw Material") )
 }
 
 export {

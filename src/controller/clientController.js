@@ -1,18 +1,10 @@
-import {
-    createClientService,
-    deleteClientService,
-    getAllClientService,
-    updateClientService,
-    getOneClientService,
-} from "../services/clientService.js"
+import { crudService } from "../services/crudService.js"
+import client from "../models/Client.js"
 
 
 const createClient = async (req,res)=>{
-    if(createClientService(req.body)){
-        res.send("Client created successfully")
-    }else{
-        res.send("Client not created")
-    }
+    const newCRUD = new crudService(req.body,client)
+    res.send(await newCRUD.createService("Client"))
 }
 
 const updateClient = async(client)=>{
