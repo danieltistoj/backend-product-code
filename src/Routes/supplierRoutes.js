@@ -5,6 +5,7 @@ import {
     getAllSuppliers,
     getOneSupplier,
     updateSupplier,
+    deleteSupplier,
 } from "../controller/supplierController.js"
 
 router
@@ -12,4 +13,5 @@ router
     .get("/getAllSuppliers",getAllSuppliers)
     .get("/getOneSupplier/:name",getOneSupplier)
     .put("/updateSupplier/:name",updateSupplier)
+    .delete("/deleteSupplier/:name",deleteSupplier)
 export default router

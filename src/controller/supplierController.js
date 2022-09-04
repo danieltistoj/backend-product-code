@@ -23,9 +23,19 @@ const updateSupplier = async (req, res) =>{
         res.send("No data found")
     }
 }
+
+const deleteSupplier = async (req,res)=>{
+    const newCRUD = new crudService(req.body,supplier)
+    if(await newCRUD.validation(req.params)){
+        res.send(await newCRUD.deleteService(req.params))
+    }else{
+        res.send("No data found")
+    }
+}
 export {
     createSupplier,
     getAllSuppliers,
     getOneSupplier,
     updateSupplier,
+    deleteSupplier,
 }
