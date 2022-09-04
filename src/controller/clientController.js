@@ -1,4 +1,4 @@
-import { crudService } from "../services/crudService.js"
+import {crudService} from "../services/crudService.js"
 import client from "../models/Client.js"
 
 

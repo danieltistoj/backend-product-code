@@ -21,9 +21,6 @@ const signUpServices = async (user) => {
     return successful
 }
 
-
-
-
 const loginServices = async (user) => {
     console.log(user)
     const email = user.email
@@ -32,7 +29,7 @@ const loginServices = async (user) => {
     let successful = false
     //Si el usuario existe
     if(!existsUser){
-       return "Username does not exist"
+        return "Username does not exist"
     }
     //comprobar confirmacion
     if(!existsUser.confirmed){

@@ -1,17 +1,10 @@
-import{
-    createProductService,
-
-} from "../services/productService.js"
+import {crudService} from "../services/crudService.js"
+import product from "../models/Product.js"
 
 const createProduct = async (req,res)=>{
-    if(createProductService(req.body)){
-        res.send("Product created successfully")
-    }else{
-        res.send("Product not created")
-    }
-
+    const newCRUD = new crudService(req.body,product)
+    res.send(await newCRUD.createService("Product"))
 }
-
 export {
     createProduct,
 }

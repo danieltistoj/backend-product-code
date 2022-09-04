@@ -6,6 +6,7 @@ import userRoutes from '../Routes/userRoutes.js'
 import clientRoutes from "../Routes/clientRoutes.js"
 import productRoutes from "../Routes/productRoutes.js"
 import rawMaterialRoutes from "../Routes/rawMaterialRoutes.js"
+import supplierRoutes from "../Routes/supplierRoutes.js"
 
 class Server{
     constructor(config){
@@ -28,6 +29,7 @@ class Server{
     this._app.use('/api/v1/client',clientRoutes)
     this._app.use('/api/v1/product',productRoutes)
     this._app.use('/api/v1/rawMaterialRoutes',rawMaterialRoutes)
+    this._app.use('/api/v1/supplier',supplierRoutes)
     }
     start(){
         this._app.set('hostname',this._hostname)

@@ -9,14 +9,21 @@ const supplierSchema = new Schema({
         trim: true,
     },
     direction:{
-        type: true,
+        type: String,
         require: false,
         trim: true,
     },
     description:{
-        type: true,
+        type:String,
         require: true,
         trim: true,
     }
 
-})
+},
+{
+    timestamps:true,
+}
+)
+
+const Supplier = mongoose.model('supplier',supplierSchema)
+export default Supplier
