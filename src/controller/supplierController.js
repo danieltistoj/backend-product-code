@@ -10,8 +10,13 @@ const getAllSuppliers = async (req, res) =>{
     const newCRUD = new crudService(req.body,supplier)
     res.send(await newCRUD.getAllData())
 }
+const getOneSupplier = async (req, res) =>{
+    const newCRUD = new crudService(req.body,supplier)
+    res.send(await newCRUD.getOneData(req.params))
+}
 
 export {
     createSupplier,
     getAllSuppliers,
+    getOneSupplier,
 }
