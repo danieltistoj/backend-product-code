@@ -5,6 +5,12 @@ const createProduct = async (req,res)=>{
     const newCRUD = new crudService(req.body,product)
     res.send(await newCRUD.createService("Product"))
 }
+
+const getAllProduct = async (req,res)=>{
+    const newCRUD = new crudService(req.body,product)
+    res.send(await newCRUD.getAllData(product))
+}
 export {
     createProduct,
+    getAllProduct,
 }

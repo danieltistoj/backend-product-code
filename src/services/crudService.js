@@ -43,4 +43,11 @@ export class crudService{
         }
         return successful
     }
+
+    //retorna todos los registros de una coleccion 
+    async getAllData(){
+        const filter = {}
+        const all = await this._model.find(filter)
+        return all
+    }
 }
