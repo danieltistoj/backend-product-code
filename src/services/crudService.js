@@ -50,4 +50,9 @@ export class crudService{
         const all = await this._model.find(filter)
         return all
     }
+    async getOneData(data){
+        const filter = data
+        const oneData = await this._model.findOne(filter)
+        return oneData
+    }
 }
