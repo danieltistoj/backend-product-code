@@ -8,6 +8,11 @@ const supplierSchema = new Schema({
         require: true,
         trim: true,
     },
+    country:{
+        type: String,
+        require: false,
+        trim: true,
+    },
     direction:{
         type: String,
         require: false,

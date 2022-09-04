@@ -15,17 +15,16 @@ export class crudService{
             return `${title} not created`
         }
     }
-    updateService(model){
-
+    /*
+    Modificar modelo 
+    */
+    async updateService(filter,upData){
+        const newData = await this._model.updateOne(filter,upData)
+        return newData
     }
-    deleteService(model){
 
-    }
-    getAllServices(id){
-
-    }
-    getOneService(id){
-        
+    async deleteService(filter){
+        return await this._model.deleteOne(filter)
     }
     /*
     El primero se refiere al valor de busqueda
@@ -35,12 +34,23 @@ export class crudService{
     Esta funcion devuelve un booleado si 
     ecuentra un valor con el dato enviado
     */
-    async validation(key,data,model){
-        const existModel = await model.findOne({key:data})
+    async validation(filter){
+        const existModel = await this._model.findOne(filter)
         let successful= false
         if(existModel){
             successful = true
         }
         return successful
+    }
+
+    //retorna todos los registros de una coleccion 
+    async getAllData(){
+        const filter = {}
+        const all = await this._model.find(filter)
+        return all
+    }
+    async getOneData(filter){
+        const oneData = await this._model.findOne(filter)
+        return oneData
     }
 }
