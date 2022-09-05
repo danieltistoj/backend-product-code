@@ -1,16 +1,7 @@
 import {crudService} from "../services/crudService.js"
-import product from "../models/Product.js"
+import product  from "../models/Product.js"
 
-/*
-class ProductController extends crudServices {
-    constructor(){
-        super(product)
-    }
-    async createProduct(req,res){
-        res.send(await this.createProduct("Product",req.body))
-    }
-}
-*/
+
 const createProduct = async (req,res)=>{
     const newCRUD = new crudService(req.body,product)
     res.send(await newCRUD.createService("Product"))

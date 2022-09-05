@@ -7,18 +7,29 @@ const createClient = async (req,res)=>{
     res.send(await newCRUD.createService("Client"))
 }
 
-const updateClient = async(client)=>{
-    
+const getAllClient = async (req,res)=>{
+    const newCRUD = new crudService(req.body,client)
+    res.send(await newCRUD.getAllData())
 }
-
-const getAllClient = async(client)=>{
-
+const getOneClient = async (req,res)=>{
+    const newCRUD = new crudService(req.body,client)
+    res.send(await newCRUD.getOneData(req.params))
 }
-const getOneClient = async(client)=>{
-    
+const updateClient = async (req,res)=>{
+    const newCRUD = new crudService(req.body,client)
+    if(await newCRUD.validation(req.params)){
+        res.send(await newCRUD.updateService(req.params,req.body))
+    }else{
+        res.send("No data found")
+    }
 }
-const deleteClient = async(client)=>{
-    
+const deleteClient = async (req,res)=>{
+    const newCRUD = new crudService(req.body,client)
+    if(await newCRUD.validation(req.params)){
+        res.send(await newCRUD.deleteService(req.params))
+    }else{
+        res.send("No data found")
+    }
 }
 
 export{
