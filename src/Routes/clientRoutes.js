@@ -10,9 +10,9 @@ import {
 
 router
     .post("/createClient",createClient)
-    .put("/updateClient/:email",updateClient)
+    .put("/updateClient/:name",updateClient)
     .get("/getAllClient",getAllClient)
-    .get("/getOneClient/:id",getOneClient)
-    .delete("/deleteClient/:id",deleteClient)
+    .get("/getOneClient/:name",getOneClient)
+    .delete("/deleteClient/:name",deleteClient)
 
 export default router

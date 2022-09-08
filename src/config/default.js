@@ -6,7 +6,7 @@ export const config = {
     api:{
         port: process.env.PORT || 4000,
         hostname: process.env.HOSTNAME || "localhost",
-        name: process.env.NAME || "App-product"
+        name: process.env.NAME 
     },
     uriMongo:{
         uri: process.env.MONGO_URI,
