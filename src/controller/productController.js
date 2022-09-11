@@ -1,40 +1,32 @@
 import {crudService} from "../services/crudService.js"
 import product  from "../models/Product.js"
 
-
-const createProduct = async (req,res)=>{
-    const newCRUD = new crudService(req.body,product)
-    res.send(await newCRUD.createService("Product"))
-}
-
-const getAllProduct = async (req,res)=>{
-    const newCRUD = new crudService(req.body,product)
-    res.send(await newCRUD.getAllData())
-}
-const getOneProduct = async (req,res)=>{
-    const newCRUD = new crudService(req.body,product)
-    res.send(await newCRUD.getOneData(req.params))
-}
-const updateProduct = async (req,res)=>{
-    const newCRUD = new crudService(req.body,product)
-    if(await newCRUD.validation(req.params)){
-        res.send(await newCRUD.updateService(req.params,req.body))
-    }else{
-        res.send("No data found")
+export class ProductController extends crudService{
+    constructor(title){
+        super(product)
+        this.title = title
     }
-}
-const deleteProduct = async (req,res)=>{
-    const newCRUD = new crudService(req.body,product)
-    if(await newCRUD.validation(req.params)){
-        res.send(await newCRUD.deleteService(req.params))
-    }else{
-        res.send("No data found")
+    async createProduct(data){
+        return await this.createService(this.title,data)
     }
-}
-export {
-    createProduct,
-    getAllProduct,
-    getOneProduct,
-    updateProduct,
-    deleteProduct,
+    async getAllProduct(req,res){
+
+    }
+    async getOneProduct(req,res) {
+        res.send(await this.getOneData(req.params))
+    }
+    async updateProduct (req,res){
+        if(await this.validation(req.params)){
+            res.send(await this.updateService(req.params,req.body))
+        }else{
+            res.send("No data found")
+        }
+    }
+    async deleteProduct (req,res){
+        if(await this.validation(req.params)){
+            res.send(await this.deleteService(req.params))
+        }else{
+            res.send("No data found")
+        }
+    }
 }

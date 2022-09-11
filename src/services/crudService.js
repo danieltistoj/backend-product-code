@@ -1,12 +1,11 @@
 export class crudService{
-    constructor(data,model){
-        this._data = data
+    constructor(model){
         this._model = model
         this._successful = false 
     }
-    async createService(title){
+    async createService(title,data){
         try {
-            const newModel = new this._model(this._data)
+            const newModel = new this._model(data)
             console.log(newModel)
             await newModel.save()
             return `${title} created successfully`
