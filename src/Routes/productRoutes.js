@@ -53,7 +53,13 @@ export class ProductRouter{
         }
     }
     async handleDeleteProduct(req,res){
-
+        try {
+            const message = await this.controller.deleteProduct(req.params)
+            this.response.success(req,res,message,this.httpCode.OK)
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+            
+        }
     }
 }
 

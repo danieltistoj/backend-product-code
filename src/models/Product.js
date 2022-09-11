@@ -24,7 +24,16 @@ const productSchema = new Schema({
     price:{
         type: Number,
         required:true,
-        trim: true,
+    },
+    materialCost:{
+        type:Number,
+        required:true,
+        default:0,
+    },
+    productionCost:{
+        type:Number,
+        required:true,
+        default:0
     },
     description:{
         type: String,
@@ -39,7 +48,9 @@ const productSchema = new Schema({
         type: String,
         trim: true,
         required:false,   
-    }
+    },
+    materials:[],
+
 },
     {
         timestamps:true,

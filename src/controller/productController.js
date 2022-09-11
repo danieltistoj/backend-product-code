@@ -29,11 +29,12 @@ export class ProductController extends crudService{
             throw error
         }
     }
-    async deleteProduct (req,res){
-        if(await this.validation(req.params)){
-            res.send(await this.deleteService(req.params))
+    async deleteProduct (params){
+        if(await this.validation(params)){
+            return await this.deleteService(params)
         }else{
-            res.send("No data found")
+            const  error = new Error("No data found")
+            throw error
         }
     }
 }

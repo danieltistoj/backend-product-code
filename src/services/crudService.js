@@ -27,7 +27,11 @@ export class crudService{
     }
 
     async deleteService(filter){
-        return await this._model.deleteOne(filter)
+        try {
+            return await this._model.deleteOne(filter)
+        } catch (error) {
+            return error
+        }
     }
     /*
     El primero se refiere al valor de busqueda
