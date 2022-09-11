@@ -11,15 +11,19 @@ export class crudService{
             return `${title} created successfully`
         } catch (error) {
             const err = new Error(`${title} not created`)
-            return err.message
+            throw err
         }
     }
     /*
     Modificar modelo 
     */
     async updateService(filter,upData){
-        const newData = await this._model.updateOne(filter,upData)
-        return newData
+        try {
+            const newData = await this._model.updateOne(filter,upData)
+            return newData
+        } catch (error) {
+            return error
+        }
     }
 
     async deleteService(filter){
@@ -44,12 +48,20 @@ export class crudService{
 
     //retorna todos los registros de una coleccion 
     async getAllData(){
-        const filter = {}
-        const all = await this._model.find(filter)
-        return all
+        try {
+            const filter = {}
+            const all = await this._model.find(filter)
+            return all
+        } catch (error) {
+            throw error
+        }
     }
     async getOneData(filter){
-        const oneData = await this._model.findOne(filter)
-        return oneData
+        try {
+            const oneData = await this._model.findOne(filter)
+            return oneData
+        } catch (error) {
+            return error
+        }
     }
 }

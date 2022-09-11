@@ -9,17 +9,24 @@ export class ProductController extends crudService{
     async createProduct(data){
         return await this.createService(this.title,data)
     }
-    async getAllProduct(req,res){
-
+    async getAllProduct(){
+        return await this.getAllData()
     }
-    async getOneProduct(req,res) {
-        res.send(await this.getOneData(req.params))
+    async getOneProduct(params) {
+        if(await this.validation(params)){
+            return await this.getOneData(params)
+        }
+        else{
+            const  error = new Error("No data found")
+            throw error
+        }
     }
-    async updateProduct (req,res){
-        if(await this.validation(req.params)){
-            res.send(await this.updateService(req.params,req.body))
+    async updateProduct (params,data){
+        if(await this.validation(params)){
+            return await this.updateService(params,data)
         }else{
-            res.send("No data found")
+            const  error = new Error("No data found")
+            throw error
         }
     }
     async deleteProduct (req,res){

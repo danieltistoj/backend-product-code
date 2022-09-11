@@ -22,18 +22,35 @@ export class ProductRouter{
             const message =  await this.controller.createProduct(req.body)
             this.response.success(req,res,message,this.httpCode.CREATED)
         } catch (error) {
-            this.response.success(req,res,error,this.httpCode.CREATED)
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
         }
         
     }
     async handleGetAllProduct(req,res){
-
+        try {
+            const message = await this.controller.getAllProduct()
+            this.response.success(req,res,message,this.httpCode.OK)
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+            
+        }
     }
     async handleGetOneProduct(req,res){
+        try {
+            const message = await this.controller.getOneProduct(req.params)
+            this.response.success(req,res,message,this.httpCode.OK)            
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+        }
 
     }
     async handleUpDateProduct(req,res){
-
+        try {
+            const message = await this.controller.updateProduct(req.params,req.body)
+            this.response.success(req,res,message,this.httpCode.OK)
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+        }
     }
     async handleDeleteProduct(req,res){
 
