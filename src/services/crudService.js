@@ -10,8 +10,8 @@ export class crudService{
             await newModel.save()
             return `${title} created successfully`
         } catch (error) {
-            console.log(error)
-            return `${title} not created`
+            const err = new Error(`${title} not created`)
+            return err.message
         }
     }
     /*

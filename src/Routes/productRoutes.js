@@ -1,8 +1,10 @@
 
 export class ProductRouter{
-    constructor(router,controller){
+    constructor(router,controller,response,httpCode){
         this.router = router()
         this.controller = controller
+        this.response = response
+        this.httpCode = httpCode
         this.routes()
     }
     routes(){
@@ -16,7 +18,13 @@ export class ProductRouter{
                 
     }
     async handleCreateProduct (req,res){
-        res.send(await this.controller.createProduct(req.body));
+        try {
+            const message =  await this.controller.createProduct(req.body)
+            this.response.success(req,res,message,this.httpCode.CREATED)
+        } catch (error) {
+            this.response.success(req,res,error,this.httpCode.CREATED)
+        }
+        
     }
     async handleGetAllProduct(req,res){
 
