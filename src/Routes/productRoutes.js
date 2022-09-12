@@ -19,7 +19,7 @@ export class ProductRouter{
     }
     async handleCreateProduct (req,res){
         try {
-            const message =  await this.controller.createProduct(req.body)
+            const message =  await this.controller.create(req.body)
             this.response.success(req,res,message,this.httpCode.CREATED)
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
@@ -28,7 +28,7 @@ export class ProductRouter{
     }
     async handleGetAllProduct(req,res){
         try {
-            const message = await this.controller.getAllProduct()
+            const message = await this.controller.getAll()
             this.response.success(req,res,message,this.httpCode.OK)
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
@@ -37,7 +37,7 @@ export class ProductRouter{
     }
     async handleGetOneProduct(req,res){
         try {
-            const message = await this.controller.getOneProduct(req.params)
+            const message = await this.controller.getOne(req.params)
             this.response.success(req,res,message,this.httpCode.OK)            
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
@@ -46,7 +46,7 @@ export class ProductRouter{
     }
     async handleUpDateProduct(req,res){
         try {
-            const message = await this.controller.updateProduct(req.params,req.body)
+            const message = await this.controller.update(req.params,req.body)
             this.response.success(req,res,message,this.httpCode.OK)
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
@@ -54,7 +54,7 @@ export class ProductRouter{
     }
     async handleDeleteProduct(req,res){
         try {
-            const message = await this.controller.deleteProduct(req.params)
+            const message = await this.controller.deleteOne(req.params)
             this.response.success(req,res,message,this.httpCode.OK)
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)

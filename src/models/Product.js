@@ -14,6 +14,7 @@ const productSchema = new Schema({
     },
     stocks: {
         type:Number,
+        required:false,
         default:0,
     },
     category:{
@@ -24,6 +25,7 @@ const productSchema = new Schema({
     price:{
         type: Number,
         required:true,
+        default:0,
     },
     materialCost:{
         type:Number,

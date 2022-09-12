@@ -5,6 +5,7 @@ import connectMongoDB from "../database/mongodb_connect.js";
 import userRoutes from "../Routes/userRoutes.js";
 
 import {productModel} from "../unify/productUnify.js"
+import {clientModel} from "../unify/clientUnify.js"
 
 class Server {
   constructor(config) {
@@ -37,7 +38,7 @@ class Server {
   }
   setRoutes() {
     this._app.use("/api/v1/user", userRoutes);
-   // this._app.use("/api/v1/client", clientRoutes);
+    this._app.use("/api/v1/client",clientModel(express.Router));
     this._app.use("/api/v1/product",productModel(express.Router));
     //this._app.use("/api/v1/rawMaterialRoutes", rawMaterialRoutes);
    // this._app.use("/api/v1/supplier", supplierRoutes);
