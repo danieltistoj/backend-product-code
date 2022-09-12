@@ -6,6 +6,7 @@ import userRoutes from "../Routes/userRoutes.js";
 
 import {productModel} from "../unify/productUnify.js"
 import {clientModel} from "../unify/clientUnify.js"
+import {rawMaterialModel} from "../unify/rawMaterialUnify.js"
 
 class Server {
   constructor(config) {
@@ -40,7 +41,7 @@ class Server {
     this._app.use("/api/v1/user", userRoutes);
     this._app.use("/api/v1/client",clientModel(express.Router));
     this._app.use("/api/v1/product",productModel(express.Router));
-    //this._app.use("/api/v1/rawMaterialRoutes", rawMaterialRoutes);
+    this._app.use("/api/v1/rawMaterialRoutes",rawMaterialModel(express.Router));
    // this._app.use("/api/v1/supplier", supplierRoutes);
   }
   start() {
