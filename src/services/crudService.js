@@ -68,4 +68,12 @@ export class crudService{
             return error
         }
     }
+    async getOneDataIgnore(filter,ignore){
+        try {
+            const oneData = await this._model.findOne(filter,ignore)
+            return oneData
+        } catch (error) {
+            return error
+        }
+    }
 }

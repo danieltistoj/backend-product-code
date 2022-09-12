@@ -1,3 +1,4 @@
+
 import User from '../models/User.js'
 import generateId from '../helpers/generateId.js'
 import generateJWT from '../helpers/generateJWT.js'
@@ -39,8 +40,7 @@ const loginServices = async (user) => {
     
     if(await existsUser.comparePassword(user.password)){
         return {
-            _id: existsUser._id,
-            name: existsUser.name,
+            auth: true,
             email: existsUser.email,
             token: generateJWT(existsUser.token)
         }
@@ -48,16 +48,25 @@ const loginServices = async (user) => {
         return "Incorrect password"
     }
 }
-const getAllUserServices = () =>{
-    return "Todos los usuarios"
-}
-const getOneUserService = (id) =>{
+export class UserService{
+    constructor(model){
+        this.model = model
+    }
 
-}
+    async signUpService(user){
+        const email = user.email
+        const existUser = await User.findOne({email})
+        let successful = false
+        if(!existUser){
+            try{
+                const newUser = new User(user)
+                await newUser.save()
+                successful = true
+            }catch(err){
+                console.log(err)
+            }
+        }
+        return successful
+    }
 
-export {
-    signUpServices,
-    loginServices,
-    getAllUserServices,
-    getOneUserService,
 }
