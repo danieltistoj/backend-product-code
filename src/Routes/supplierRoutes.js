@@ -10,7 +10,7 @@ export class SupplierRouter{
     routes(){
         
         this.router
-                .post("/createSupplier",this.handleCreateSupplier.bind(this))
+                .post("/createSupplier",this.middleware.verifyToken,this.handleCreateSupplier.bind(this))
                 .get("/getAllSuppliers",this.handleGetAllSupplier.bind(this))
                 .get("/getOneSupplier/:name",this.handleGetOneSupplier.bind(this))
                 .put("/updateSupplier/:name",this.handleUpDateSupplier.bind(this))

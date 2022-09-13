@@ -10,7 +10,7 @@ export class ClientRouter{
     routes(){
         
         this.router
-                .post("/createClient",this.handleCreateClient.bind(this))
+                .post("/createClient",this.middleware.verifyToken,this.handleCreateClient.bind(this))
                 .get("/getAllClient",this.handleGetAllClient.bind(this))
                 .get("/getOneClient/:name",this.handleGetOneClient.bind(this))
                 .put("/upDateClient/:name",this.handleUpDateClient.bind(this))

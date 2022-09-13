@@ -10,7 +10,7 @@ export class UserRouter{
     routes(){
         
         this.router
-                .post("/signUp",this.handleSignUp.bind(this))
+                .post("/signUp",this.middleware.verifyToken,this.handleSignUp.bind(this))
                 .post("/signIn",this.handleSignIn.bind(this))
                 .get("/getAllUser/:name",this.handleGetAllUser.bind(this))
                 .get("/getOneUser/:name",this.handleGetOneUser.bind(this))

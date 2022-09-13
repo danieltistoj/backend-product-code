@@ -10,7 +10,7 @@ export class RawMaterialRouter{
     routes(){
         
         this.router
-                .post("/createRawMaterial",this.handleCreateRawMaterial.bind(this))
+                .post("/createRawMaterial",this.middleware.verifyToken,this.handleCreateRawMaterial.bind(this))
                 .get("/getAllRawMaterial",this.handleGetAllRawMaterial.bind(this))
                 .get("/getOneRawMaterial/:name",this.handleGetOneRawMaterial.bind(this))
                 .put("/upDateRawMaterial/:name",this.handleUpDateRawMaterial.bind(this))
