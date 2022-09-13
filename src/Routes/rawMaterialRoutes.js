@@ -1,9 +1,10 @@
 export class RawMaterialRouter{
-    constructor(router,controller,response,httpCode){
+    constructor(router,controller,response,httpCode,middleware){
         this.router = router()
         this.controller = controller
         this.response = response
         this.httpCode = httpCode
+        this.middleware = middleware
         this.routes()
     }
     routes(){

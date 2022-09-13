@@ -1,16 +1,17 @@
 
 export class ProductRouter{
-    constructor(router,controller,response,httpCode){
+    constructor(router,controller,response,httpCode,middleware){
         this.router = router()
         this.controller = controller
         this.response = response
         this.httpCode = httpCode
+        this.middleware = middleware
         this.routes()
     }
     routes(){
         
         this.router
-                .post("/createProduct",this.handleCreateProduct.bind(this))
+                .post("/createProduct",this.middleware.verifyToken,this.handleCreateProduct.bind(this))
                 .get("/getAllProduct",this.handleGetAllProduct.bind(this))
                 .get("/getOneProduct/:name",this.handleGetOneProduct.bind(this))
                 .put("/upDateProduct/:name",this.handleUpDateProduct.bind(this))
