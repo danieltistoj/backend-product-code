@@ -1,30 +1,37 @@
 export class crudService{
-    constructor(data,model){
-        this._data = data
+    constructor(model){
         this._model = model
         this._successful = false 
     }
-    async createService(title){
+    async createService(title,data){
         try {
-            const newModel = new this._model(this._data)
+            const newModel = new this._model(data)
             console.log(newModel)
             await newModel.save()
             return `${title} created successfully`
         } catch (error) {
-            console.log(error)
-            return `${title} not created`
+            const err = new Error(`${title} not created`)
+            throw err
         }
     }
     /*
     Modificar modelo 
     */
     async updateService(filter,upData){
-        const newData = await this._model.updateOne(filter,upData)
-        return newData
+        try {
+            const newData = await this._model.updateOne(filter,upData)
+            return newData
+        } catch (error) {
+            return error
+        }
     }
 
     async deleteService(filter){
-        return await this._model.deleteOne(filter)
+        try {
+            return await this._model.deleteOne(filter)
+        } catch (error) {
+            return error
+        }
     }
     /*
     El primero se refiere al valor de busqueda
@@ -45,12 +52,28 @@ export class crudService{
 
     //retorna todos los registros de una coleccion 
     async getAllData(){
-        const filter = {}
-        const all = await this._model.find(filter)
-        return all
+        try {
+            const filter = {}
+            const all = await this._model.find(filter)
+            return all
+        } catch (error) {
+            throw error
+        }
     }
     async getOneData(filter){
-        const oneData = await this._model.findOne(filter)
-        return oneData
+        try {
+            const oneData = await this._model.findOne(filter)
+            return oneData
+        } catch (error) {
+            return error
+        }
+    }
+    async getOneDataIgnore(filter,ignore){
+        try {
+            const oneData = await this._model.findOne(filter,ignore)
+            return oneData
+        } catch (error) {
+            return error
+        }
     }
 }
