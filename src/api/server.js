@@ -2,12 +2,13 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import connectMongoDB from "../database/mongodb_connect.js";
-import userRoutes from "../Routes/userRoutes.js";
-import clientRoutes from "../Routes/clientRoutes.js";
-import productRoutes from "../Routes/productRoutes.js";
-import rawMaterialRoutes from "../Routes/rawMaterialRoutes.js";
-import supplierRoutes from "../Routes/supplierRoutes.js";
 
+
+import {productModel} from "../unify/productUnify.js"
+import {clientModel} from "../unify/clientUnify.js"
+import {rawMaterialModel} from "../unify/rawMaterialUnify.js"
+import {supplierModel} from "../unify/supplierUnify.js"
+import {userModel} from "../unify/userUnify.js"
 class Server {
   constructor(config) {
     this._app = express();
@@ -20,28 +21,29 @@ class Server {
     connectMongoDB();
   }
   setMiddleware() {
-    const dominiosPermitidos = [process.env.FRONTEND_URL];
+    
+    const allowedDomains = [process.env.FRONTEND_URL];
     const corsOptions = {
       origin: function (origin, callback) {
-        if (dominiosPermitidos.indexOf(origin) !== -1) {
+        if (allowedDomains.indexOf(origin) !== -1) {
           //El origen de request esta pemitido
           callback(null, true);
         } else {
-          callback(new Error("NO permitido por CORS"));
+          callback(new Error("Not allowed by CORS"));
         }
       },
     };
-
+    
     this._app.use(express.json());
-    this._app.use(cors(corsOptions));
+    //this._app.use(cors(corsOptions));
     this._app.use(morgan("dev"));
   }
   setRoutes() {
-    this._app.use("/api/v1/user", userRoutes);
-    this._app.use("/api/v1/client", clientRoutes);
-    this._app.use("/api/v1/product", productRoutes);
-    this._app.use("/api/v1/rawMaterialRoutes", rawMaterialRoutes);
-    this._app.use("/api/v1/supplier", supplierRoutes);
+    this._app.use("/api/v1/user", userModel(express.Router));
+    this._app.use("/api/v1/client",clientModel(express.Router));
+    this._app.use("/api/v1/product",productModel(express.Router));
+    this._app.use("/api/v1/rawMaterialRoutes",rawMaterialModel(express.Router));
+    this._app.use("/api/v1/supplier", supplierModel(express.Router));
   }
   start() {
     this._app.set("hostname", this._hostname);
