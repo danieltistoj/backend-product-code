@@ -39,3 +39,33 @@ de un producto y sus componentes.
   <img align="center" alt="Rafa-Csharp" height="50" width="200" src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge">
   <img align="center" alt="Rafa-Csharp" height="50" width="200" src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white">
 </div>
+<div align="center">
+<h1>Dependencias</h1>
+</div>
+
+```json
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.3",
+    "morgan": "^1.10.0",
+    "pg": "^8.8.0",
+    "swagger-ui-express": "^4.5.0",
+    "yamljs": "^0.3.0"
+```
+<p>Instalar dependencias</p>
+
+
+```sh
+npm i
+```
+
+<p>Ejecutar en local</p>
+
+```sh
+npm run dev
+```
