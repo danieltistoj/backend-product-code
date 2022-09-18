@@ -51,8 +51,12 @@ const productSchema = new Schema({
         trim: true,
         required:false,   
     },
-    materials:[],
-
+    
+    materials:{
+        type: Array,
+        default: [],
+        required: true
+    },
 },
     {
         timestamps:true,
