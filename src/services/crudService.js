@@ -6,9 +6,10 @@ export class crudService{
     async createService(title,data){
         try {
             const newModel = new this._model(data)
-            console.log(newModel)
+           //console.log(newModel)
             await newModel.save()
-            return `${title} created successfully`
+            //return `${title} created successfully`
+            return newModel
         } catch (error) {
             const err = new Error(`${title} not created`)
             throw err
