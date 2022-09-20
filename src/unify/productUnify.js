@@ -10,3 +10,19 @@ export const productModel = (expressRouter)=>{
     const productRouter = new ProductRouter(expressRouter,controller,response,HttpCode,middleware)
     return productRouter.router
 }
+    /**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The user ID.
+ *           example: 0
+ *         name:
+ *           type: string
+ *           description: The user's name.
+ *           example: Leanne Graham
+ */

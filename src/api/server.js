@@ -3,7 +3,14 @@ import cors from "cors";
 import morgan from "morgan";
 import connectMongoDB from "../database/mongodb_connect.js";
 
+//helpers
+import { swagger } from '../helpers/swaggerSpec.js'
 
+//swagger
+import swaggerUI from "swagger-ui-express"
+import swaggerJsDoc from "swagger-jsdoc"
+
+//models
 import {productModel} from "../unify/productUnify.js"
 import {clientModel} from "../unify/clientUnify.js"
 import {rawMaterialModel} from "../unify/rawMaterialUnify.js"
@@ -34,8 +41,9 @@ class Server {
         }
       },
     };
-    
+    this._app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swagger.swaggerSpec)))
     this._app.use(express.json());
+    this._app.use(express.urlencoded({ extended: true }))
     //this._app.use(cors(corsOptions));
     this._app.use(morgan("dev"));
   }
