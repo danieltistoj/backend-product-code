@@ -21,6 +21,11 @@ const userSchema = new Schema({
         trim:true,
         undefined:true,
     },
+    rol:{
+        type:String,
+        //required:true,
+        default:"retail",
+    },
     token:{
         type:String,
         //select:false,

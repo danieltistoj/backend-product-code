@@ -8,7 +8,13 @@ export class UserController extends crudController {
         const email = data.email
         //se envia como parametro el email
         if(!await this.validation({email})){
-            return await this.create(data)
+            try {
+                await this.create(data)
+                return "user created"
+            } catch (error) {
+                return error
+            }
+            
         }
         else{
             const error = new Error(`User ${data.email} already exists`)
@@ -30,6 +36,7 @@ export class UserController extends crudController {
             if(validator){
                 return {
                     auth: true,
+                    name:user.name,
                     email: user.email,
                     token: generateJWT(user._id)
                 }

@@ -18,6 +18,6 @@ import path from "path";
             },
         ],
         },
-        apis: [`${path.join("./index.js", "../unify/*.js")}`],
+        apis: [ "../unify/*.js"],
     },
     };
