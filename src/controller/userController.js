@@ -36,7 +36,7 @@ export class UserController extends crudController {
             if(validator){
                 return {
                     auth: true,
-                    name:user.name,
+                    id:user._id,
                     email: user.email,
                     token: generateJWT(user._id)
                 }
