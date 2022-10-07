@@ -15,6 +15,7 @@ export class ProductRouter{
                 .get("/getAllProduct",this.handleGetAllProduct.bind(this))
                 .get("/getOneProduct/:name",this.handleGetOneProduct.bind(this))
                 .put("/upDateProduct/:name",this.handleUpDateProduct.bind(this))
+                .put("/AddProduct/:name",this.handleAddMaterial.bind(this))
                 .delete("/deleteProduct/:name",this.handleDeleteProduct.bind(this))
                 
     }
@@ -57,6 +58,16 @@ export class ProductRouter{
         try {
             const message = await this.controller.deleteOne(req.params)
             this.response.success(req,res,message,this.httpCode.OK)
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+            
+        }
+    }
+    async handleAddMaterial(req,res){
+        try {
+            const message = await this.controller.addMaterials(req.body,req.params)
+            console.log(message)
+            this.response.success(req,res,message,this.httpCode.OK)  
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
             
