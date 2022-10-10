@@ -55,10 +55,7 @@ export class crudService{
         }
 
     }
-    //Validacion por id 
-    async validationId(id){
-        console.log(id)
-    }
+
     //retorna todos los registros de una coleccion 
     async getAllData(){
         try {
