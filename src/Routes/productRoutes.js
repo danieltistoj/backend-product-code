@@ -1,11 +1,12 @@
 
 export class ProductRouter{
-    constructor(router,controller,response,httpCode,middleware){
+    constructor(router,controller,response,httpCode,middleware,materialController){
         this.router = router()
         this.controller = controller
         this.response = response
         this.httpCode = httpCode
         this.middleware = middleware
+        this.materialController = materialController
         this.routes()
     }
     routes(){
@@ -13,9 +14,9 @@ export class ProductRouter{
         this.router
                 .post("/createProduct",this.middleware.verifyToken,this.handleCreateProduct.bind(this))
                 .get("/getAllProduct",this.handleGetAllProduct.bind(this))
-                .get("/getOneProduct/:name",this.handleGetOneProduct.bind(this))
+                .get("/getOneProduct/:id",this.handleGetOneProduct.bind(this))
                 .put("/upDateProduct/:name",this.handleUpDateProduct.bind(this))
-                .put("/AddProduct/:name",this.handleAddMaterial.bind(this))
+                .put("/AddProduct/:id",this.handleAddMaterial.bind(this))
                 .delete("/deleteProduct/:name",this.handleDeleteProduct.bind(this))
                 
     }
@@ -39,7 +40,10 @@ export class ProductRouter{
     }
     async handleGetOneProduct(req,res){
         try {
-            const message = await this.controller.getOne(req.params)
+            const data = {
+                _id: req.params["id"]
+            }
+            const message = await this.controller.getOne(data)
             this.response.success(req,res,message,this.httpCode.OK)            
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
@@ -65,7 +69,10 @@ export class ProductRouter{
     }
     async handleAddMaterial(req,res){
         try {
-            const message = await this.controller.addMaterials(req.body,req.params)
+            const data = {
+                _id: req.params["id"]
+            }
+            const message = await this.controller.addMaterial(req.body,data,this.materialController)
             console.log(message)
             this.response.success(req,res,message,this.httpCode.OK)  
         } catch (error) {

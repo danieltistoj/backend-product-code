@@ -43,14 +43,22 @@ export class crudService{
     ecuentra un valor con el dato enviado
     */
     async validation(filter){
-        const existModel = await this._model.findOne(filter)
-        let successful= false
-        if(existModel){
-            successful = true
+        try {
+            const existModel = await this._model.findOne(filter)
+            let successful= false
+            if(existModel){
+                successful = true
+            }
+            return successful
+        } catch (error) {
+            return false
         }
-        return successful
-    }
 
+    }
+    //Validacion por id 
+    async validationId(id){
+        console.log(id)
+    }
     //retorna todos los registros de una coleccion 
     async getAllData(){
         try {

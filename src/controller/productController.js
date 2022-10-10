@@ -4,25 +4,21 @@ export class ProductController extends crudController{
         super(title,model)
     }
     
-    async addMaterials(materials,filter){
-        if(await this.validation(filter)){
-            //encontramos el user
-            const user = await this.getOneData(filter)
-            let totalCosts = 0
-            try {
-                //recorremos la lista y agregamos el material
-                for(let i = 0; i <materials.length; i++){
-                    //sumamos los sub costos
-                    totalCosts +=materials[i].subCost
-                    user.materials.push(materials[i])
-                }
-                user.materialCost = totalCosts
-                await user.save()
-                return user
-            } catch (error) {
-                console.log(error)
-                return  error
-            }
+    async addMaterial(material,filter,materialController){
+        const id_material = material.id
+        //se comprueba que el material exista
+        if(!await materialController.validation({_id:id_material})){
+            throw new Error( "material does not exist")
+        }
+        const modelMaterial = await materialController.getOne({_id:id_material})
+       
+        if(await this.validation(filter) ){
+            //encontramos el producto
+            const product = await this.getOneData(filter)
+            product.materialCost += modelMaterial.cost * material.amount
+            product.materials.push(material)
+            await product.save()
+            return `costo total material: ${product.materialCost}`
         }
         else{
             throw new Error(`The product ${filter.name} does not exist`)
