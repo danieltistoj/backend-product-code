@@ -61,6 +61,7 @@ export class ProductController extends crudController{
         }
         //obtenemos el material 
         const material = await materialController.getOne({_id:id_material})
+        console.log(material)
         if(await this.validation(filter)){
             //obtenemos el producto 
             const product = await this.getOne(filter)
@@ -69,13 +70,43 @@ export class ProductController extends crudController{
             if(!some){
                 return "the material does not exist"
             }
-            const oldMaterial = product.materials.find(material => material.id === id_material)
-            const indexOldMaterial = product.materials.findIndex(material => material.id === id_material)
-            console.log(indexOldMaterial)
-            return oldMaterial
-           // const newSubCost = amount * material.cost
-            
-            
+
+            try {
+                //obtenemos el actual material con sus datos
+                const oldMaterial = product.materials.find(material => material.id === id_material)
+                //obtenemos la posicion en donde esta para modificar despues
+                const indexOldMaterial = product.materials.findIndex(material => material.id === id_material)
+                //obtenemos actual sub costo del material
+                const currentCost = oldMaterial.amount * material.cost 
+                //le restamos esa cantidad al costo total actual
+                product.materialCost -= currentCost
+                //le sumamos el sub costo del material nuevo
+                const newCost = amount * material.cost
+                product.materialCost+=newCost
+                //modificamos la cantidad del material en el registro
+                //se elimina el material anterior 
+                const newList = product.materials.find(material => material.id !== id_material)
+                let newMaterial = []
+                /*  esto se realiza si esque queda solo
+                    un elemento, ya que si solo hay uno no devolvera un array
+                    sino el objeto en si lo que dara error al insertar el nuevo objeto
+                */
+                if(!Array.isArray(newList)){ //si no es array
+                    newMaterial.push(newList)
+                    newMaterial.push({id:id_material,amount})
+                    product.materials = newMaterial
+                }else{//si es array
+                    newList.push({id:id_material,amount})
+                    product.materials = newList
+                }
+                product.save()
+                
+                //guardamos la modificacion
+                //product.save()
+                return "material modified correctly"
+            }catch (error) {
+                return error
+            }    
         }
     }
 
