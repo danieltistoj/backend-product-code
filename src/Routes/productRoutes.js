@@ -18,6 +18,7 @@ export class ProductRouter{
                 .put("/upDateProduct/:name",this.handleUpDateProduct.bind(this))
                 .put("/AddProduct/:id",this.handleAddMaterial.bind(this))
                 .put("/deleteMaterial/:id",this.handleDeleteMaterial.bind(this))
+                .put("/updateAmountMaterial/:id",this.handleUpdateAmountMaterial.bind(this))
                 .delete("/deleteProduct/:name",this.handleDeleteProduct.bind(this))
                 
     }
@@ -84,8 +85,20 @@ export class ProductRouter{
 
     async handleDeleteMaterial(req,res){
         try {
-            const id  = req.params["id"]
+            const id  = req.params["id"]//id del material 
             const message = await this.controller.deleteMaterialAllProduct(id,this.materialController)
+            this.response.success(req,res,message,this.httpCode.OK)  
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+            
+        }
+    }
+    async handleUpdateAmountMaterial(req,res){
+        try {
+            const filter = {
+            _id:req.params["id"]//id del producto
+            }
+            const message = await this.controller.updateAmountMaterial(filter,req.body,this.materialController)
             this.response.success(req,res,message,this.httpCode.OK)  
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)

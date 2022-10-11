@@ -52,6 +52,33 @@ export class ProductController extends crudController{
         return `El material se elimino de  ${contador} productos` 
     }
 
+    async updateAmountMaterial(filter,data,materialController){
+        const id_material = data.id
+        const amount = data.amount
+        //verificamos que exita el material
+        if(!await materialController.validation({_id:id_material})){
+            throw new Error( "material does not exist")
+        }
+        //obtenemos el material 
+        const material = await materialController.getOne({_id:id_material})
+        if(await this.validation(filter)){
+            //obtenemos el producto 
+            const product = await this.getOne(filter)
+            //verificamos que el material exista en la lista
+            const some = product.materials.some(material => material.id === id_material)
+            if(!some){
+                return "the material does not exist"
+            }
+            const oldMaterial = product.materials.find(material => material.id === id_material)
+            const indexOldMaterial = product.materials.findIndex(material => material.id === id_material)
+            console.log(indexOldMaterial)
+            return oldMaterial
+           // const newSubCost = amount * material.cost
+            
+            
+        }
+    }
+
     async deleteMaterial(id_product,id_material,materialController){
         const product = await this.getOne({_id:id_product})
         console.log("name product",product.name)
