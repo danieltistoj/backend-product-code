@@ -44,11 +44,12 @@ export class ProductController extends crudController{
             const some = product.materials.some(material => material.id === id)
             if(some){
             const id_product = product._id
+            //eliminamos el material de la lista de producto 
             this.deleteMaterial(id_product,id,materialController)
             contador++
             }
         })//fin ciclo
-        return `El material esta en ${contador} productos` 
+        return `El material se elimino de  ${contador} productos` 
     }
 
     async deleteMaterial(id_product,id_material,materialController){
@@ -57,15 +58,35 @@ export class ProductController extends crudController{
         console.log(product.materials) 
         //descartamos el material en la lista 
         const newList = product.materials.filter(material => material.id !== id_material)
+        const removedMaterial = product.materials.find(material => material.id === id_material)
         //agregamos la nueva lista al producto 
         product.materials = newList
-        //recontamos el total de costo de material 
-        console.log("Total costo de material: ", await this.totalMaterialCosts(newList,materialController))
-        console.log(newList)
-        return newList
+        //obtenemos el nuevo costo 
+        const newCost = product.materialCost -  await this.subCostMaterial(removedMaterial,materialController)
+        //agregamos el nuevo costo
+        product.materialCost = newCost
+        console.log("nuevo costo: ",product.materialCost)
+        console.log("nueva lista",product.materials)
+        //guardamos 
+        product.save()
+
     }
 
-       async totalMaterialCosts(materials,materialController){
+    //obtenemos el subtotal con la cantidad del material y su costo 
+    async subCostMaterial(material, materialController){
+        let subTotal = 0
+        //obtenermos la cantidad que requiere 
+        const amount = material.amount 
+        //obtenemos toda la informacion del material
+        const oldMaterial = await  materialController.getOne({_id:material.id})
+         //obtenemos el costo del material
+        const costMaterial = oldMaterial.cost
+        subTotal = amount * costMaterial
+        return subTotal
+    }
+
+    //para hacer el reconteo del total de costo de material
+    async totalMaterialCosts(materials,materialController){
         let totalCosts = 0
         for(const material of materials){
             //obtenermos la cantidad que requiere 
