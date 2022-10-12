@@ -129,6 +129,17 @@ export class ProductController extends crudController{
         product.save()
 
     }
+    async updateCostMaterial(id_material,materialController){
+        const listProduct = await this.getAll()
+        let counter = 0
+        listProduct.forEach((product)=>{
+            const some = product.materials.some(material => material.id === id_material)
+            if(some){
+                counter++
+            }
+        })
+        return `se encotro en ${counter} productos el material`
+    }
 
     //obtenemos el subtotal con la cantidad del material y su costo 
     async subCostMaterial(material, materialController){
