@@ -85,7 +85,8 @@ export class ProductController extends crudController{
                 product.materialCost+=newCost
                 //modificamos la cantidad del material en el registro
                 //se elimina el material anterior 
-                const newList = product.materials.find(material => material.id !== id_material)
+                const newList = product.materials.filter(material => material.id !== id_material)
+                console.log(newList)
                 let newMaterial = []
                 /*  esto se realiza si esque queda solo
                     un elemento, ya que si solo hay uno no devolvera un array
@@ -99,6 +100,8 @@ export class ProductController extends crudController{
                     newList.push({id:id_material,amount})
                     product.materials = newList
                 }
+                console.log(product.materials)
+                console.log(product.materialCost)
                 product.save()
                 
                 //guardamos la modificacion
@@ -137,17 +140,21 @@ export class ProductController extends crudController{
             if(some){
                 const id_product = product._id
                 const totalCost = await this.totalMaterialCosts(product.materials,materialController)
-                const newProduct = await this.getOne(id_product)
-                console.log(newProduct)
-                newProduct.materialCost = totalCost
-                newProduct.materialCost
-                newProduct.save()
+                await this.updateMaterialCost(id_product,totalCost)
+                
                 counter++
             }
         }
         return `se encotro en ${counter} productos el material`
     }
+    async updateMaterialCost(id_pro,totalCost){
+        const product = await this.getOne({_id:id_pro})
+        product.materialCost = totalCost
+        console.log(product.materialCost)
+        console.log(product)
+        product.save()
 
+    }
     //obtenemos el subtotal con la cantidad del material y su costo 
     async subCostMaterial(material, materialController){
         let subTotal = 0
