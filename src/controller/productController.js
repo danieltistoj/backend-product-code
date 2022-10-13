@@ -132,12 +132,19 @@ export class ProductController extends crudController{
     async updateCostMaterial(id_material,materialController){
         const listProduct = await this.getAll()
         let counter = 0
-        listProduct.forEach((product)=>{
+        for(const product of listProduct){
             const some = product.materials.some(material => material.id === id_material)
             if(some){
+                const id_product = product._id
+                const totalCost = await this.totalMaterialCosts(product.materials,materialController)
+                const newProduct = await this.getOne(id_product)
+                console.log(newProduct)
+                newProduct.materialCost = totalCost
+                newProduct.materialCost
+                newProduct.save()
                 counter++
             }
-        })
+        }
         return `se encotro en ${counter} productos el material`
     }
 
@@ -162,7 +169,7 @@ export class ProductController extends crudController{
             const amount = material.amount
             //obtenemos toda la informacion del material
             const oldMaterial = await  materialController.getOne({_id:material.id})
-            console.log(oldMaterial)
+            //console.log(oldMaterial)
             //obtenemos el costo del material
             const costMaterial = oldMaterial.cost
             //sumamos al total de costo
