@@ -6,9 +6,10 @@ export class crudService{
     async createService(title,data){
         try {
             const newModel = new this._model(data)
-            console.log(newModel)
+           //console.log(newModel)
             await newModel.save()
-            return `${title} created successfully`
+            //return `${title} created successfully`
+            return newModel
         } catch (error) {
             const err = new Error(`${title} not created`)
             throw err
@@ -42,12 +43,17 @@ export class crudService{
     ecuentra un valor con el dato enviado
     */
     async validation(filter){
-        const existModel = await this._model.findOne(filter)
-        let successful= false
-        if(existModel){
-            successful = true
+        try {
+            const existModel = await this._model.findOne(filter)
+            let successful= false
+            if(existModel){
+                successful = true
+            }
+            return successful
+        } catch (error) {
+            return false
         }
-        return successful
+
     }
 
     //retorna todos los registros de una coleccion 

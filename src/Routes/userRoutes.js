@@ -13,7 +13,7 @@ export class UserRouter{
                 .post("/signUp",this.middleware.verifyToken,this.handleSignUp.bind(this))
                 .post("/signIn",this.handleSignIn.bind(this))
                 .get("/getAllUser/:name",this.handleGetAllUser.bind(this))
-                .get("/getOneUser/:name",this.handleGetOneUser.bind(this))
+                .get("/getOneUser/:id",this.handleGetOneUser.bind(this))
                 .delete("/deleteOneUser/:name",this.handleDeleteOneUser.bind(this))
                 .put("/updateUser/:name",this.handleUpDateUser.bind(this))
                 
@@ -47,7 +47,12 @@ export class UserRouter{
     }
     async handleGetOneUser(req,res){
         try {
-            const message = await this.controller.getOne(req.params)
+           // console.log(req.params)
+            const idUser = {
+                _id:req.params.id
+            }
+            console.log(idUser)
+            const message = await this.controller.getOne(idUser)
             this.response.success(req,res,message,this.httpCode.OK)            
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
