@@ -4,11 +4,10 @@ import morgan from "morgan";
 import connectMongoDB from "../database/mongodb_connect.js";
 
 //helpers
-import { swagger } from '../helpers/swaggerSpec.js'
+
 
 //swagger
-import swaggerUI from "swagger-ui-express"
-import swaggerJsDoc from "swagger-jsdoc"
+import {swaggerJSDocs} from "../helpers/swaggerSpec.js"
 
 //models
 import {productModel} from "../unify/productUnify.js"
@@ -41,7 +40,7 @@ class Server {
         }
       },
     };
-    this._app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(swaggerJsDoc(swagger.swaggerSpec)))
+    swaggerJSDocs(this._app,this._port)
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }))
     //this._app.use(cors(corsOptions));

@@ -1,23 +1,34 @@
-import { config } from "../config/default.js";
-import path from "path";
 
-    export const swagger = {
-    swaggerSpec: {
-        swaggerDefinition: {
-        openapi: "3.0.0",
-        info: {
-            title: "Product Code API Documentation",
-            version: "1.0.0",
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express"
+import { config } from "../config/default.js"
+
+const options = {
+    definition:{
+    openapi:"3.0.0",
+    info:{title:"Documentacion de la API",version:"1.0.0"},
+    servers: [
+        {
+        url: `http://${config.api.hostname}:${config.api.port}`,
+        description: "Servidor local"
         },
-        servers: [
-            {
-            url: `http://${config.api.hostname}:${config.api.port}`,
-            },
-            {
-            url: "https://servidor-operaciones.herokuapp.com",
-            },
-        ],
+        {
+        url: "https://servidor-operaciones.herokuapp.com",
+        description: "Servidor en produccion"
         },
-        apis: [ "../unify/*.js"],
+    ]
     },
-    };
+    
+    apis:["src/unify/*.js"]
+}
+
+const swaggerSpec = swaggerJSDoc(options)
+
+export const swaggerJSDocs = (app,port)=>{
+    app.use("/api/v1/docs",swaggerUi.serve,swaggerUi.setup(swaggerSpec))
+    app.use("api/v1/docs.json",(req,res)=>{
+        res.setHeader('Content-Type', 'application/json')
+        res.send(swaggerSpec)
+    })
+
+}
