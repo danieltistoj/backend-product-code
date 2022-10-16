@@ -46,12 +46,7 @@ const productSchema = new Schema({
         type:Boolean,
         default:true,
     },
-    admission:{
-        type: String,
-        trim: true,
-        required:false,   
-    },
-    
+
     materials:{
         type: Array,
         default: [],
