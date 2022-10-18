@@ -21,123 +21,269 @@ export const productModel = (expressRouter)=>{
  * @swagger
  * components:
  *   schemas:
- *     User:
+ *     Product:
  *       type: object
  *       properties:
  *         name:
  *           type: string
- *           description: nombre de usuario.
- *           example: daniel
- *         email:
+ *           description: nombre del producto.
+ *           example: producto1
+ *         type:
  *           type: string
- *           description: email del usuario.
- *           example: daniel@gmail.com
- *         password:
+ *           description: tipo de producto.
+ *           example: tipo1
+ *         category:
  *           type: string
- *           description: contraseña del usuario.
- *           example: password1234
- *         rol:
+ *           description: contegoria del producto.
+ *           example: categoria5
+ *         description:
  *           type: string
- *           description: el rol del usuario.
- *           example: retail
- *         confirmed: 
- *           type: string
- *           description: la confirmacion del usuario
- *           example: false || true
+ *           description: descripcion del producto.
+ *           example: descripcion
+ *         stocks: 
+ *           type: Integer
+ *           description: stock del producto.
+ *           example: 40
+ *         price: 
+ *           type: Number
+ *           description: precio del producto.
+ *           example: 200.9
+ *         materialCost: 
+ *           type: Number
+ *           description: costo total de materiales
+ *           example: 100.50
+ *         productionCost:  
+ *           type: Number
+ *           description: costo total de produccion
+ *           example: 60.50
+ *         state:  
+ *           type: boolean
+ *           description: estado del producto
+ *           example: true
+ *         materials:  
+ *           type: Array
+ *           description: lista de productos
+ *           example: [{},{},{},{},{},{},{},{},{}]
  *       required:
  *         -name
- *         -email
- *         -password
+ *         -type
+ *         -category
+ *         -description
  *       example: 
- *         name: daniel
- *         email: daniel@gmail.com
- *         password: "123456"
+ *         name: producto1
+ *         type: tipo1
+ *         category: category1
+ *         description: description1
  */
-
-
-
 /**
  * @swagger
- * /api/v1/user/signUp:
+ * /api/v1/product/createProduct:
  *   post:
- *     summary: Crear un usuario.
- *     tags: [User]
+ *     summary: Crear un nuevo producto.
+ *     tags: [Product]
  *     requestBody:  
  *       required: true
  *       content: 
  *         application/json:
  *           schema:
  *             type: object
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/Product'
  *     responses:
  *       200:
- *         description: user created 
-*/
-/**
- * @swagger
- * /api/v1/user/signIn:
- *   post:
- *     summary: acceso o logueo a la app web.
- *     tags: [User]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               email:
- *                 type: string
- *                 description: email del usuario.
- *                 example: daniel@gmail.com
- *               password:
- *                 type: string
- *                 description: password del usuario.
- *                 example: 1234        
- *     responses:
- *       200:
- *         description: informacion de autenticacion.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 auth:
- *                   type: boolean
- *                   description: confirma la autenticacion.
- *                   example: true 
- *                 id:
- *                   type: string
- *                   description: el id del usuario.
- *                   example: 431431eefa3313123fdfd13221
- *                 email:
- *                   type: string
- *                   description: el email del usuario.
- *                   example: daniel@gmail.com
- *                 token:
- *                   type: string
- *                   description: token de autenticacion.
- *                   example: efadaerafdafaf231fdfasdfa...
- *       400:
- *         description: no se pudo autenticar.      
+ *         description: product created 
 */
 
 /**
  * @swagger
- * /api/v1/user/getOneUser/{id}:
+ * /api/v1/product/getAllProduct:
  *   get:
- *     summary: Get one user.
- *     tags: [User]
+ *     summary: Retorna todos los productos.
+ *     tags: [Product]
+ *     responses:  
+ *       200: 
+ *         description: Retorna todos los boletines.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+*/
+/**
+ * @swagger
+ * /api/v1/product/getOneProduct/{id}:
+ *   get:
+ *     summary: Retorna un producto.
+ *     tags: [Product]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: the user id
+ *         description: El id del producto
  *     responses:  
  *       200: 
- *         description: retorna la informacion de un usuario
+ *         description: Retorna un producto.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               $ref: '#/components/schemas/Product'
  *       400:
- *         description: user not found
+ *         description: Product not found
+*/
+/**
+ * @swagger
+ * /api/v1/product/upDateProduct/{id}:
+ *   put:
+ *     summary: update a product.
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: id del producto
+ *     requestBody:  
+ *       required: true
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             $ref: '#/components/schemas/Product'
+ *     responses:  
+ *       200: 
+ *         description: product updated!
+ *       400:
+ *         description: product not found
+*/
+
+/**
+ * @swagger
+ * /api/v1/product/deleteProduct/{id}:
+ *   delete:
+ *     summary: delete a product.
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: the product id
+ *     responses:  
+ *       200: 
+ *         description: product deleted
+ *       400:
+ *         description: product not found
+*/
+
+/**
+ * @swagger
+ * /api/v1/product/AddMaterial/{id}:
+ *   put:
+ *     summary: Se agrega un material al producto.
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: El id del producto
+ *     requestBody:  
+ *       required: true
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: el id del material.
+ *                 example: 63179dfdb7eed1649c214f7f 
+ *               amount:
+ *                 type: Integer
+ *                 description: La cantidad que se necesita.
+ *                 example: 9
+ *     responses:  
+ *       200: 
+ *         description: product updated!
+ *       400:
+ *         description: product not found
+*/
+/**
+ * @swagger
+ * /api/v1/product/deleteMaterial/{id}:
+ *   put:
+ *     summary: Se elimina el material de los productos relacionados.
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: El id del material
+ *     responses:  
+ *       200: 
+ *         description: product updated!
+ *       400:
+ *         description: product not found
+*/
+/**
+ * @swagger
+ * /api/v1/product/updateAmountMaterial/{id}:
+ *   put:
+ *     summary: Se modifica la cantidad del material.
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: El id del producto
+ *     requestBody:  
+ *       required: true
+ *       content: 
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: el id del material.
+ *                 example: 63179dfdb7eed1649c214f7f 
+ *               amount:
+ *                 type: Integer
+ *                 description: La cantidad que se necesita.
+ *                 example: 9
+ *     responses:  
+ *       200: 
+ *         description: product updated!
+ *       400:
+ *         description: product not found
+*/
+
+/**
+ * @swagger
+ * /api/v1/product/updateCostMaterial/{id}:
+ *   put:
+ *     summary: Se actualizan los costos del material modificado.
+ *     tags: [Product]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: El id del material
+ *     responses:  
+ *       200: 
+ *         description: product updated!
+ *       400:
+ *         description: product not found
 */

@@ -15,8 +15,8 @@ export class ProductRouter{
                 .post("/createProduct",this.middleware.verifyToken,this.handleCreateProduct.bind(this))
                 .get("/getAllProduct",this.handleGetAllProduct.bind(this))
                 .get("/getOneProduct/:id",this.handleGetOneProduct.bind(this))
-                .put("/upDateProduct/:name",this.handleUpDateProduct.bind(this))
-                .put("/AddProduct/:id",this.handleAddMaterial.bind(this))
+                .put("/upDateProduct/:id",this.handleUpDateProduct.bind(this))
+                .put("/AddMaterial/:id",this.handleAddMaterial.bind(this))
                 .put("/deleteMaterial/:id",this.handleDeleteMaterial.bind(this))
                 .put("/updateAmountMaterial/:id",this.handleUpdateAmountMaterial.bind(this))
                 .put("/updateCostMaterial/:id",this.handleUpdateCostMaterial.bind(this))
@@ -55,7 +55,10 @@ export class ProductRouter{
     }
     async handleUpDateProduct(req,res){
         try {
-            const message = await this.controller.update(req.params,req.body)
+            const data = {
+                _id: req.params["id"]
+            }
+            const message = await this.controller.update(data,req.body)
             this.response.success(req,res,message,this.httpCode.OK)
         } catch (error) {
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
