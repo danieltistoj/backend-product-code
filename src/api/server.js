@@ -16,6 +16,7 @@ import {rawMaterialModel} from "../unify/rawMaterialUnify.js"
 import {supplierModel} from "../unify/supplierUnify.js"
 import {userModel} from "../unify/userUnify.js"
 import {OrderMaterialModel} from "../unify/orderMaterialUnify.js"
+import {productOrderModel} from "../unify/productOrderUnify.js"
 class Server {
   constructor(config) {
     this._app = express();
@@ -53,6 +54,7 @@ class Server {
     this._app.use("/api/v1/rawMaterialRoutes",rawMaterialModel(express.Router));
     this._app.use("/api/v1/supplier", supplierModel(express.Router));
     this._app.use("/api/v1/orderMaterial", OrderMaterialModel(express.Router));
+    this._app.use("/api/v1/productOrder",productOrderModel(express.Router));
   }
   start() {
     this._app.set("hostname", this._hostname);
