@@ -5,6 +5,7 @@ export class crudService{
     }
     async createService(title,data){
         try {
+            console.log(data)
             const newModel = new this._model(data)
            //console.log(newModel)
             await newModel.save()

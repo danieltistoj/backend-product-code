@@ -4,42 +4,42 @@ const Schema = mongoose.Schema;
 const productOrderSchema = new Schema({
     arrival: { //recibe 
         type: Number,
-        required: true,
-        default:0
+        //required: true,
+        //default:0
     },
     stock:{ 
         type: Number,
-        required: true,
+       // required: true,
         default: 0
     },
     total: {
         type: Number,
-        required:false,
+       // required:false,
         default:0,
     },
     order:{//pedido
         type: Number,
-        required:true,
+        
         default:0
     },
     sale:{//venta
         type: Number,
-        required: true,
+        //required: true,
         default:0
     },
     newStock:{
         type: Number,
-        required: true,
+        //required: true,
         default:0
     },
     date:{
-        type: Date,
-        required:true,
+        type: String,
+        //required:true,
         default:"",
     },
     idProduct:{
         type:String,
-        required:true,
+        //required:true,
         default:""
     },
 },
