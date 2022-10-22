@@ -9,8 +9,17 @@ export class ProductOrderController extends crudController{
         if(!await this.validation({idProduct:data.idProduct})){
            //obtenemos el producto 
             const product = await productController.getOne({_id:data.idProduct})
-            const newData = this.createOrder(data,0,product.stocks)
-            return await this.create(newData)
+            if(product.stocks==0){
+                const error = new Error("no stock for order")              
+                throw error
+            }else{
+                try {
+                    const newData = this.createOrder(data,0,product.stocks)
+                    return await this.create(newData)
+                } catch (error) {
+                    throw error
+                }
+            }
         }else{
              //obtenemos el producto 
             const product = await productController.getOne({_id:data.idProduct})
@@ -26,8 +35,13 @@ export class ProductOrderController extends crudController{
             if(!(desiredOrder === undefined)){
                 const order = desiredOrder.order
                 const stock = desiredOrder.newStock
-                const newData = this.createOrder(data,order,stock)
-                return await this.create(newData)
+                try {
+                    const newData = this.createOrder(data,order,stock)
+                    return await this.create(newData)
+                } catch (error) {
+                    throw error
+                }
+                
             }else{
                 throw "there is no order to receive"
             }
@@ -41,18 +55,23 @@ export class ProductOrderController extends crudController{
         data.total = data.arrival + data.stock
         data.newStock = data.total - data.sale
         data.date = this.createDateFormat(date)
-        const newData = {
-            arrival: data.arrival,
-            stock: data.stock,
-            total: data.total,
-            order: data.order,
-            sale: data.sale,
-            newStock: data.newStock,
-            date:data.date,
-            idProduct: data.idProduct
+        //si la venta es mayor al disponible en el stock 
+        if(data.total < data.sale){
+            const error = new Error("there is no product for sale")
+            throw error
+        }else{
+            const newData = {
+                arrival: data.arrival,
+                stock: data.stock,
+                total: data.total,
+                order: data.order,
+                sale: data.sale,
+                newStock: data.newStock,
+                date:data.date,
+                idProduct: data.idProduct
+            }
+            return newData
         }
-        return newData
-
     }
     //obtenemos la fecha en la que se pidio una orden
     orderDate(date,days){
