@@ -12,7 +12,7 @@ export class ProductOrderRouter{
         
         this.router
                 .get("/",this.handleTest.bind(this))
-                .get("/specificOrders",this.handleGetSpecificOrders.bind(this))
+                .get("/specificOrders/:id",this.handleGetSpecificOrders.bind(this))
                 .post("/createProductOrder",this.handleCreateProductOrder.bind(this))
                 
                 
@@ -40,7 +40,7 @@ export class ProductOrderRouter{
     }
     async handleGetSpecificOrders(req,res){
         try {
-            const message = "entro en ger"
+            const message = await this.controller.getSpecificOrder(req.params["id"])
             //const message = await this.controller.createProductOrder(req.body,date,this.productController)
             //const message = await this.controller.create(req.body)
             this.response.success(req,res,message,this.httpCode.CREATED)

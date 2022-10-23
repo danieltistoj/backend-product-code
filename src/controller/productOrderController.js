@@ -47,6 +47,16 @@ export class ProductOrderController extends crudController{
             }
         }
     }
+    async getSpecificOrder(idProduct){
+        if(this.validation({idProduct})){
+            const allOrders = await this.getAll()
+            //filtrar por el id del producto 
+            const filteredList = allOrders.filter(order => order.idProduct === idProduct)
+            return filteredList
+        }else{
+            throw "no product orders"
+        }
+    }
     //formar orden
     createOrder(data,orderOld,stockOld){
         const date = new Date()
