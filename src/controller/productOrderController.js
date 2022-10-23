@@ -43,7 +43,14 @@ export class ProductOrderController extends crudController{
                 }
                 
             }else{
-                throw "there is no order to receive"
+                //si no encuentra orden los dias designados de entrega
+                try {
+                    const stock = desiredOrder.newStock
+                    const newData = this.createOrder(data,0,stock)
+                    return await this.create(newData)
+                } catch (error) {
+                    throw error
+                }
             }
         }
     }
@@ -56,6 +63,9 @@ export class ProductOrderController extends crudController{
         }else{
             throw "no product orders"
         }
+    }
+    async updateProductOrder(data){
+        
     }
     //formar orden
     createOrder(data,orderOld,stockOld){
