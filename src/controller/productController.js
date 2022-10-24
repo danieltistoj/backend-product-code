@@ -17,10 +17,12 @@ export class ProductController extends crudController{
             //se evalua si el material ya esta en la lista 
             const some = product.materials.some(post => post.id === id_material)
             if(!some){
-                //costo total = costo toal + costo del materil * cantidad 
+                //se agrega el  nombre 
+                material.name = modelMaterial.name                //costo total = costo toal + costo del materil * cantidad 
                 product.materialCost += modelMaterial.cost * material.amount
                 //se agregan los datos del body a la lista de materiales
                 product.materials.push(material)
+                console.log(material)
                 await product.save()
                 return `the material was added successfully`
             }else{
