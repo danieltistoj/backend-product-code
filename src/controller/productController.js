@@ -18,7 +18,10 @@ export class ProductController extends crudController{
             const some = product.materials.some(post => post.id === id_material)
             if(!some){
                 //se agrega el  nombre 
-                material.name = modelMaterial.name                //costo total = costo toal + costo del materil * cantidad 
+                material.name = modelMaterial.name  
+                material.cost = modelMaterial.cost  
+                material.subtotal =  modelMaterial.cost * material.amount         //costo total = costo toal + costo del materil * cantidad 
+                //costo total = costo toal + costo del materil * cantidad 
                 product.materialCost += modelMaterial.cost * material.amount
                 //se agregan los datos del body a la lista de materiales
                 product.materials.push(material)
