@@ -64,6 +64,32 @@ export class ProductOrderController extends crudController{
             throw "no product orders"
         }
     }
+
+    async getDataMatrix(idProduct){
+        const listOrder = await this.getSpecificOrder(idProduct)
+        let mainList = []
+        for(const order of  listOrder){
+            let listOrder = 
+            [
+                order.arrival,
+                order.stock,
+                order.total,
+                order.order,
+                order.sale,
+                order.newStock
+            ]
+            mainList.push(listOrder)
+        }
+        return mainList
+    }
+    async getArrayDate(idProduct){
+        const listOrder = await this.getSpecificOrder(idProduct)
+        let mainList = []
+        for(const order of  listOrder){
+            mainList.push(order.date)
+        }
+        return mainList
+    }
     async updateProductOrder(data){
         
     }

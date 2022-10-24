@@ -13,6 +13,8 @@ export class ProductOrderRouter{
         this.router
                 .get("/",this.handleTest.bind(this))
                 .get("/specificOrders/:id",this.handleGetSpecificOrders.bind(this))
+                .get("/dataMatrix/:id",this.handleGetDataMatrix.bind(this))
+                .get("/getArrayDate/:id",this.handleGetArrayDate.bind(this))
                 .post("/createProductOrder",this.handleCreateProductOrder.bind(this))
                 .put("/updateProductOrder",this.handleUpdateProductOrder.bind(this))
                 
@@ -57,5 +59,23 @@ export class ProductOrderRouter{
             this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
         }
         
+    }
+    async handleGetDataMatrix(req,res){
+        try {
+            const message = await  this.controller.getDataMatrix(req.params["id"])
+            this.response.success(req,res,message,this.httpCode.CREATED)
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+        }
+        
+    }
+    async handleGetArrayDate(req,res){
+        try {
+           const message = await  this.controller.getArrayDate(req.params["id"])
+           //const message = "get array date"
+           this.response.success(req,res,message,this.httpCode.CREATED)
+        } catch (error) {
+            this.response.error(req,res,error,this.httpCode.BAD_REQUEST)
+        } 
     }
 }
