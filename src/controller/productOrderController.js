@@ -80,6 +80,7 @@ export class ProductOrderController extends crudController{
             ]
             mainList.push(listOrder)
         }
+        console.log(mainList)
         return mainList
     }
     async getArrayDate(idProduct){
@@ -89,6 +90,7 @@ export class ProductOrderController extends crudController{
             mainList.push(order.date)
         }
         return mainList
+
     }
     async updateProductOrder(data){
         

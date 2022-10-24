@@ -22,6 +22,16 @@ const supplierSchema = new Schema({
         type:String,
         require: true,
         trim: true,
+    },
+    email:{
+        type:String,
+        require: false,
+        trim: true
+    },
+    phone:{
+        type:String,
+        require: false,
+        trim:true
     }
 
 },
