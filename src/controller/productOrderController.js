@@ -43,7 +43,14 @@ export class ProductOrderController extends crudController{
                 }
                 
             }else{
-                throw "there is no order to receive"
+                //si no encuentra orden los dias designados de entrega
+                try {
+                    const stock = desiredOrder.newStock
+                    const newData = this.createOrder(data,0,stock)
+                    return await this.create(newData)
+                } catch (error) {
+                    throw error
+                }
             }
         }
     }
@@ -56,6 +63,35 @@ export class ProductOrderController extends crudController{
         }else{
             throw "no product orders"
         }
+    }
+
+    async getDataMatrix(idProduct){
+        const listOrder = await this.getSpecificOrder(idProduct)
+        let mainList = []
+        for(const order of  listOrder){
+            let listOrder = 
+            [
+                order.arrival,
+                order.stock,
+                order.total,
+                order.order,
+                order.sale,
+                order.newStock
+            ]
+            mainList.push(listOrder)
+        }
+        return mainList
+    }
+    async getArrayDate(idProduct){
+        const listOrder = await this.getSpecificOrder(idProduct)
+        let mainList = []
+        for(const order of  listOrder){
+            mainList.push(order.date)
+        }
+        return mainList
+    }
+    async updateProductOrder(data){
+        
     }
     //formar orden
     createOrder(data,orderOld,stockOld){
